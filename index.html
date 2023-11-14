@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    #output {
+      border: 1px solid #ccc;
+      padding: 10px;
+      white-space: pre-wrap;
+    }
+    #preview {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+    function updatePreview() {
+      // Obter valores dos campos de entrada
+      var larguraEtiqueta = document.getElementById('larguraEtiqueta').value;
+      var alturaEtiqueta = document.getElementById('alturaEtiqueta').value;
+
+      // Converter para pixels (1 cm ≈ 37.7953 pixels)
+      var larguraPixel = larguraEtiqueta * 37.7953;
+      var alturaPixel = alturaEtiqueta * 37.7953;
+
+      // Atualizar a div de visualização
+      document.getElementById('preview').style.width = larguraPixel + "px";
+      document.getElementById('preview').style.height = alturaPixel + "px";
+    }
+
+    function updateJSON() {
+      // Obter valores dos campos de entrada
+      var larguraEtiqueta = document.getElementById('larguraEtiqueta').value;
+      var alturaEtiqueta = document.getElementById('alturaEtiqueta').value;
+
+      // Converter para milímetros
+      var larguraMM = larguraEtiqueta;
+      var alturaMM = alturaEtiqueta;
+
+      // Construir o objeto JSON
+      var jsonObject = {
+        "Etiqueta": {
+          "Dimensoes": {
+            "Largura": larguraMM,
+            "Altura": alturaMM
+          },
+          // Adicionar outros campos conforme necessário
+        },
+        // Adicionar outros objetos conforme necessário
+      };
+
+      // Converter JSON para string e exibir na área de saída
+      document.getElementById('output').textContent = JSON.stringify(jsonObject, null, 2);
+
+      // Atualizar a div de visualização
+      updatePreview();
+    }
+  </script>
+</head>
+<body>
+  <h2>Configuração</h2>
+  <form>
+    <h3>Dimensões do Papel:</h3>
+    <label for="larguraPapel">Largura (mm):</label>
+    <input type="number" id="larguraPapel" onchange="updateJSON()" />
+    
+    <label for="alturaPapel">Altura (mm):</label>
+    <input type="number" id="alturaPapel" onchange="updateJSON()" />
+    
+    <h3>Margens do Papel:</h3>
+    <label for="margemEsquerdaPapel">Esquerda (mm):</label>
+    <input type="number" id="margemEsquerdaPapel" onchange="updateJSON()" />
+    <label for="margemSuperiorPapel">Superior (mm):</label>
+    <input type="number" id="margemDireitaPapel" onchange="updateJSON()" />
+    <label for="margemDireitaPapel">Direita (mm):</label>
+    <input type="number" id="margemDireitaPapel" onchange="updateJSON()" />
+    <label for="margemInferiorPapel">Inferior (mm):</label>
+    <input type="number" id="margemDireitaPapel" onchange="updateJSON()" />
+    <!-- Adicionar outros campos conforme necessário -->
+
+    <h3>Dimensões da Etiqueta:</h3>
+    <label for="larguraEtiqueta">Largura da Etiqueta (mm):</label>
+    <input type="number" id="larguraEtiqueta" onchange="updateJSON()" />
+    
+    <label for="alturaEtiqueta">Altura da Etiqueta (mm):</label>
+    <input type="number" id="alturaEtiqueta" onchange="updateJSON()" />
+
+    
+    <h3>Espaçamento Entre Etiquetas:</h3>
+    <label for="larguraEtiqueta">Horizontal (mm):</label>
+    <input type="number" id="larguraEtiqueta" onchange="updateJSON()" />
+    
+    <label for="alturaEtiqueta">Vertical (mm):</label>
+    <input type="number" id="alturaEtiqueta" onchange="updateJSON()" />
+
+  </form>
+
+  <h2>Visualização do JSON em mm</h2>
+  <pre id="output"></pre>
+
+  <h2>Visualização em CSS (Pixels)</h2>
+  <div id="preview"></div>
+</body>
+</html>
